@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 require('dotenv').config();
-const db = require('../db-config');
+const db = require('./db-config');
 const path = require('path');
 const passport = require("passport");
 const session = require("express-session");
