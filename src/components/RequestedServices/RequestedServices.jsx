@@ -1,3 +1,121 @@
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import "./RequestedServices.css";
+
+// const RequestedServices = () => {
+//   const [user, setUser] = useState(null);
+//   const [requests, setRequests] = useState([]);
+//   const [loadingUser, setLoadingUser] = useState(true);
+//   const [loadingRequests, setLoadingRequests] = useState(false);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchLoggedInUser = async () => {
+//       try {
+//         setLoadingUser(true);
+//         const res = await axios.get("http://localhost:4000/users/loggedin_user", {
+//           withCredentials: true,
+//         });
+//         setUser(res.data);
+//       } catch (err) {
+//         setError("Failed to load user info.");
+//       } finally {
+//         setLoadingUser(false);
+//       }
+//     };
+
+//     fetchLoggedInUser();
+//   }, []);
+
+//   useEffect(() => {
+//     if (!user?.id) return;
+
+//     const fetchRequests = async () => {
+//       try {
+//         setLoadingRequests(true);
+//         const res = await axios.get(`http://localhost:4000/requests/users/${user.id}`, {
+//           withCredentials: true,
+//         });
+//         setRequests(res.data);
+//       } catch {
+//         setError("Failed to load your requests.");
+//       } finally {
+//         setLoadingRequests(false);
+//       }
+//     };
+
+//     fetchRequests();
+//   }, [user]);
+
+//   const handleCancel = async (requestId) => {
+//     const confirmCancel = window.confirm("Are you sure you want to cancel this request?");
+//     if (!confirmCancel) return;
+
+//     try {
+//       await axios.delete(`http://localhost:4000/requests/${requestId}`, {
+//         withCredentials: true,
+//       });
+//       setRequests((prev) => prev.filter((req) => req.id !== requestId && req._id !== requestId));
+//     } catch (err) {
+//       alert("Failed to cancel request. Please try again.");
+//       console.error(err);
+//     }
+//   };
+
+//   if (loadingUser) return <p>Loading user information...</p>;
+//   if (loadingRequests) return <p>Loading your requests...</p>;
+//   if (error) return <p style={{ color: "red" }}>{error}</p>;
+
+//   const statuses = ["pending", "accepted", "rejected", "completed"];
+
+//   return (
+//     <div>
+//       <h2>My Requested Services</h2>
+//       {statuses.map((status) => {
+//         const filtered = requests.filter((r) => r.status.toLowerCase() === status);
+//         if (!filtered.length) return null;
+//         return (
+//           <section key={status}>
+//             <h3 style={{ textTransform: "capitalize" }}>{status} requests</h3>
+//             {filtered.map((req) => (
+//               <div
+//                 key={req.id || req._id}
+//                 style={{ border: "1px solid #ccc", margin: "0.5rem", padding: "0.5rem" }}
+//               >
+//                 <p>
+//                   <strong>Service:</strong> {req.servicecategory || "N/A"}
+//                 </p>
+//                 <p>
+//                   <strong>Price:</strong> {req.fee ?? "N/A"} JD
+//                 </p>
+//                 <p>
+//                   <strong>Status:</strong> {req.status}
+//                 </p>
+//                 <p>
+//                   <strong>Requested at:</strong>{" "}
+//                   {new Date(req.createdat || req.createdAt).toLocaleString()}
+//                 </p>
+//                 <p>
+//                   <strong>Worker Name:</strong>{" "}
+//                   {req.worker_firstname && req.worker_lastname
+//                     ? `${req.worker_firstname} ${req.worker_lastname}`
+//                     : "N/A"}
+//                 </p>
+//                 {status === "pending" && (
+//                   <button className="cancel-button" onClick={() => handleCancel(req.id || req._id)}>
+//                     Cancel Request
+//                   </button>
+//                 )}
+//               </div>
+//             ))}
+//           </section>
+//         );
+//       })}
+//     </div>
+//   );
+// };
+
+// export default RequestedServices;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./RequestedServices.css";
@@ -17,8 +135,8 @@ const RequestedServices = () => {
           withCredentials: true,
         });
         setUser(res.data);
-      } catch (err) {
-        setError("Failed to load user info.");
+      } catch {
+        setError("فشل في تحميل معلومات المستخدم.");
       } finally {
         setLoadingUser(false);
       }
@@ -38,7 +156,7 @@ const RequestedServices = () => {
         });
         setRequests(res.data);
       } catch {
-        setError("Failed to load your requests.");
+        setError("فشل في تحميل الطلبات.");
       } finally {
         setLoadingRequests(false);
       }
@@ -48,7 +166,7 @@ const RequestedServices = () => {
   }, [user]);
 
   const handleCancel = async (requestId) => {
-    const confirmCancel = window.confirm("Are you sure you want to cancel this request?");
+    const confirmCancel = window.confirm("هل أنت متأكد من إلغاء هذا الطلب؟");
     if (!confirmCancel) return;
 
     try {
@@ -57,57 +175,56 @@ const RequestedServices = () => {
       });
       setRequests((prev) => prev.filter((req) => req.id !== requestId && req._id !== requestId));
     } catch (err) {
-      alert("Failed to cancel request. Please try again.");
-      console.error(err);
+      alert("فشل في إلغاء الطلب. حاول مجددًا.");
     }
   };
 
-  if (loadingUser) return <p>Loading user information...</p>;
-  if (loadingRequests) return <p>Loading your requests...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loadingUser) return <p className="loading">جاري تحميل معلومات المستخدم...</p>;
+  if (loadingRequests) return <p className="loading">جاري تحميل الطلبات...</p>;
+  if (error) return <p className="error">{error}</p>;
 
   const statuses = ["pending", "accepted", "rejected", "completed"];
 
   return (
-    <div>
-      <h2>My Requested Services</h2>
+    <div className="requested-services-container">
+      <h2 className="page-title">My Request</h2>
       {statuses.map((status) => {
         const filtered = requests.filter((r) => r.status.toLowerCase() === status);
         if (!filtered.length) return null;
+
         return (
           <section key={status}>
-            <h3 style={{ textTransform: "capitalize" }}>{status} requests</h3>
-            {filtered.map((req) => (
-              <div
-                key={req.id || req._id}
-                style={{ border: "1px solid #ccc", margin: "0.5rem", padding: "0.5rem" }}
-              >
-                <p>
-                  <strong>Service:</strong> {req.servicecategory || "N/A"}
-                </p>
-                <p>
-                  <strong>Price:</strong> {req.fee ?? "N/A"} JD
-                </p>
-                <p>
-                  <strong>Status:</strong> {req.status}
-                </p>
-                <p>
-                  <strong>Requested at:</strong>{" "}
-                  {new Date(req.createdat || req.createdAt).toLocaleString()}
-                </p>
-                <p>
-                  <strong>Worker Name:</strong>{" "}
-                  {req.worker_firstname && req.worker_lastname
-                    ? `${req.worker_firstname} ${req.worker_lastname}`
-                    : "N/A"}
-                </p>
-                {status === "pending" && (
-                  <button className="cancel-button" onClick={() => handleCancel(req.id || req._id)}>
-                    Cancel Request
-                  </button>
-                )}
-              </div>
-            ))}
+            <h3 className="status-title">{status.toUpperCase()}</h3>
+            <div className="card-grid">
+              {filtered.map((req) => (
+                <div key={req.id || req._id} className={`request-card ${status}`}>
+                  <div className="card-header">
+                    {/* <img
+                      src={req.worker_image || "https://via.placeholder.com/60"}
+                      alt="worker"
+                      className="worker-image"
+                    /> */}
+                    <span className="badge">{status}</span>
+                  </div>
+                  <div className="card-content">
+                    <p>💼 <strong>The service:</strong> {req.servicecategory || "unavailable"}</p>
+                    <p>💰 <strong>The price:</strong> {req.fee ?? "unavailable"} JD</p>
+                    {/* <p>📍 <strong>The location</strong> {req.location || "unavailable"}</p> */}
+                    <p>🧑‍🔧 <strong>Worker name:</strong> {req.worker_firstname && req.worker_lastname ? ` ${req.worker_firstname} ${req.worker_lastname}` : " غير معروف"}</p>
+                    {/* <p>⭐ <strong>The rating:</strong> {req.worker_rating ? `${req.worker_rating}/5` : "unavailable"}</p> */}
+                    <p>🕒 <strong>Order date:</strong> {new Date(req.createdat || req.createdAt).toLocaleString()}</p>
+                  </div>
+                  {status === "pending" && (
+                    <button
+                      className="cancel-button"
+                      onClick={() => handleCancel(req.id || req._id)}
+                    >
+                      ❌ Cancel order
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </section>
         );
       })}
@@ -116,6 +233,36 @@ const RequestedServices = () => {
 };
 
 export default RequestedServices;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
