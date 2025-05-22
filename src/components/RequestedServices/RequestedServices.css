@@ -1,4 +1,4 @@
-.requested-services {
+/* .requested-services {
   padding: 2rem;
   max-width: 900px;
   margin: auto;
@@ -45,4 +45,171 @@
 
 .cancel-button:hover {
   background-color: #c82333;
+} */
+/* RequestedServices.css */
+
+.requested-services-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2rem;
+}
+
+.status-title {
+  color: #34495e;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.request-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+}
+
+.request-card:hover {
+  transform: scale(1.02);
+}
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: gray; /* fallback color */
+}
+
+.request-card.pending .badge {
+  background-color: #f39c12; /* برتقالي */
+}
+
+.request-card.accepted .badge {
+  background-color: #2ecc71; /* أخضر */
+}
+
+.request-card.rejected .badge {
+  background-color: #e74c3c; /* أحمر */
+}
+
+.request-card.completed .badge {
+  background-color: #3498db; /* أزرق */
+}
+
+
+.card-content p {
+  margin: 0.4rem 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.cancel-button {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #2980b9;
+}
+
+.error {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: red;
+}
+.status-title.pending {
+  color: #f39c12;
+}
+
+.status-title.accepted {
+  color: #2ecc71;
+}
+
+.status-title.rejected {
+  color: #e74c3c;
+}
+
+.status-title.completed {
+  color: #3498db;
+}
+.status-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 2rem 0 1rem;
+  position: relative;
+  padding-left: 1rem;
+  text-transform: uppercase;
+  background-color: rgb(71, 156, 140);
+}
+
+.status-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 6px;
+  height: 80%;
+  border-radius: 4px;
+  background-color: #999;
+}
+
+/* لون الخط الجانبي حسب نوع الحالة */
+.status-title:has(+ .card-grid .request-card.pending)::before {
+  background-color: #f39c12;
+}
+
+.status-title:has(+ .card-grid .request-card.accepted)::before {
+  background-color: #2ecc71;
+}
+
+.status-title:has(+ .card-grid .request-card.rejected)::before {
+  background-color: #e74c3c;
+}
+
+.status-title:has(+ .card-grid .request-card.completed)::before {
+  background-color: #3498db;
 }
