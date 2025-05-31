@@ -20,6 +20,8 @@ import WorkerProfile from './components/workerAndUser/WorkerProfile.jsx';
 import Booknow from './components/cards/Booknow.jsx';
 // admin importtttt
 import AdminRoutes from './routes/AdminRoutes.jsx';
+import ResetPassword from "./components/loginAndjoin/ResetPassword.jsx"; 
+
 export default function App() {
     const [theme, setTheme] = useState('light');
   return (
@@ -37,7 +39,8 @@ export default function App() {
           <Route path="/booknow" element={<Booknow />} />
           <Route path="/profile" element={<Profile />} /> 
           <Route path="/accountSetting" element={<AccountSetting />} /> 
-   
+          <Route path="/reset-password" element={<ResetPassword />} /> {/* أضف هذا */}
+
           {/* <Route path="/" element={<Services />} /> */}
           <Route path="/MyServices" element={<MyServices/>}/>
           <Route path="/RequestedServices" element={<RequestedServices />} />
