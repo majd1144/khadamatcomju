@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import './AdminReviews.css';
+ import './AdminReviews.css';
 
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -13,6 +13,8 @@ const AdminReviews = () => {
   const fetchReviews = async () => {
     try {
       const response = await axios.get('http://localhost:4000/admin/reviews');
+          console.log(response.data);  // ← تحقق من شكل البيانات هنا
+
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -55,8 +57,8 @@ const AdminReviews = () => {
           <tbody>
             {reviews.map((review) => (
               <tr key={review.id}>
-                <td>{review.userName}</td>
-                <td>{review.workerName}</td>
+                <td>{review.user_name}</td>
+                <td>{review.worker_name}</td>
                 <td>{review.comment}</td>
                 <td>{review.rating}⭐</td>
                 <td>{new Date(review.createdat).toLocaleDateString()}</td>

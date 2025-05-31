@@ -1,6 +1,7 @@
 // components/admin/AdminBookings.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./AdminBookings.css";
 
 const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -20,6 +21,7 @@ const handleStatusChange = async (id, status) => {
 };
 
   return (
+    <div className="admin-bookings">
     <div>
       <h2 className="text-2xl font-bold mb-4">📦 All Bookings</h2>
       <table className="w-full border border-gray-300">
@@ -60,6 +62,7 @@ const handleStatusChange = async (id, status) => {
 </tbody>
 
       </table>
+    </div>
     </div>
   );
 };
