@@ -1,121 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import "./RequestedServices.css";
-
-// const RequestedServices = () => {
-//   const [user, setUser] = useState(null);
-//   const [requests, setRequests] = useState([]);
-//   const [loadingUser, setLoadingUser] = useState(true);
-//   const [loadingRequests, setLoadingRequests] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     const fetchLoggedInUser = async () => {
-//       try {
-//         setLoadingUser(true);
-//         const res = await axios.get("http://localhost:4000/users/loggedin_user", {
-//           withCredentials: true,
-//         });
-//         setUser(res.data);
-//       } catch (err) {
-//         setError("Failed to load user info.");
-//       } finally {
-//         setLoadingUser(false);
-//       }
-//     };
-
-//     fetchLoggedInUser();
-//   }, []);
-
-//   useEffect(() => {
-//     if (!user?.id) return;
-
-//     const fetchRequests = async () => {
-//       try {
-//         setLoadingRequests(true);
-//         const res = await axios.get(`http://localhost:4000/requests/users/${user.id}`, {
-//           withCredentials: true,
-//         });
-//         setRequests(res.data);
-//       } catch {
-//         setError("Failed to load your requests.");
-//       } finally {
-//         setLoadingRequests(false);
-//       }
-//     };
-
-//     fetchRequests();
-//   }, [user]);
-
-//   const handleCancel = async (requestId) => {
-//     const confirmCancel = window.confirm("Are you sure you want to cancel this request?");
-//     if (!confirmCancel) return;
-
-//     try {
-//       await axios.delete(`http://localhost:4000/requests/${requestId}`, {
-//         withCredentials: true,
-//       });
-//       setRequests((prev) => prev.filter((req) => req.id !== requestId && req._id !== requestId));
-//     } catch (err) {
-//       alert("Failed to cancel request. Please try again.");
-//       console.error(err);
-//     }
-//   };
-
-//   if (loadingUser) return <p>Loading user information...</p>;
-//   if (loadingRequests) return <p>Loading your requests...</p>;
-//   if (error) return <p style={{ color: "red" }}>{error}</p>;
-
-//   const statuses = ["pending", "accepted", "rejected", "completed"];
-
-//   return (
-//     <div>
-//       <h2>My Requested Services</h2>
-//       {statuses.map((status) => {
-//         const filtered = requests.filter((r) => r.status.toLowerCase() === status);
-//         if (!filtered.length) return null;
-//         return (
-//           <section key={status}>
-//             <h3 style={{ textTransform: "capitalize" }}>{status} requests</h3>
-//             {filtered.map((req) => (
-//               <div
-//                 key={req.id || req._id}
-//                 style={{ border: "1px solid #ccc", margin: "0.5rem", padding: "0.5rem" }}
-//               >
-//                 <p>
-//                   <strong>Service:</strong> {req.servicecategory || "N/A"}
-//                 </p>
-//                 <p>
-//                   <strong>Price:</strong> {req.fee ?? "N/A"} JD
-//                 </p>
-//                 <p>
-//                   <strong>Status:</strong> {req.status}
-//                 </p>
-//                 <p>
-//                   <strong>Requested at:</strong>{" "}
-//                   {new Date(req.createdat || req.createdAt).toLocaleString()}
-//                 </p>
-//                 <p>
-//                   <strong>Worker Name:</strong>{" "}
-//                   {req.worker_firstname && req.worker_lastname
-//                     ? `${req.worker_firstname} ${req.worker_lastname}`
-//                     : "N/A"}
-//                 </p>
-//                 {status === "pending" && (
-//                   <button className="cancel-button" onClick={() => handleCancel(req.id || req._id)}>
-//                     Cancel Request
-//                   </button>
-//                 )}
-//               </div>
-//             ))}
-//           </section>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
-// export default RequestedServices;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./RequestedServices.css";
@@ -136,7 +18,7 @@ const RequestedServices = () => {
         });
         setUser(res.data);
       } catch {
-        setError("فشل في تحميل معلومات المستخدم.");
+        setError("Failed to load user information.");
       } finally {
         setLoadingUser(false);
       }
@@ -156,7 +38,7 @@ const RequestedServices = () => {
         });
         setRequests(res.data);
       } catch {
-        setError("فشل في تحميل الطلبات.");
+        setError("Failed to load requests.");
       } finally {
         setLoadingRequests(false);
       }
@@ -166,7 +48,7 @@ const RequestedServices = () => {
   }, [user]);
 
   const handleCancel = async (requestId) => {
-    const confirmCancel = window.confirm("هل أنت متأكد من إلغاء هذا الطلب؟");
+    const confirmCancel = window.confirm("Are you sure you want to cancel this order?");
     if (!confirmCancel) return;
 
     try {
@@ -175,12 +57,12 @@ const RequestedServices = () => {
       });
       setRequests((prev) => prev.filter((req) => req.id !== requestId && req._id !== requestId));
     } catch (err) {
-      alert("فشل في إلغاء الطلب. حاول مجددًا.");
+      alert("Failed to cancel the request. Try again.");
     }
   };
 
-  if (loadingUser) return <p className="loading">جاري تحميل معلومات المستخدم...</p>;
-  if (loadingRequests) return <p className="loading">جاري تحميل الطلبات...</p>;
+  if (loadingUser) return <p className="loading">Loading user information...</p>;
+  if (loadingRequests) return <p className="loading">Loading orders...</p>;
   if (error) return <p className="error">{error}</p>;
 
   const statuses = ["pending", "accepted", "rejected", "completed"];

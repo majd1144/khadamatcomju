@@ -4,6 +4,7 @@ import { servicesCards } from "../../data";
 import ReactStars from "react-rating-stars-component";
 import './WorkerProfile.css';
 import person from "../../asset/person.png";
+import Booknow from '../cards/Booknow';
 import axios from 'axios';
 
 const WorkerProfile = () => {
@@ -14,12 +15,18 @@ const WorkerProfile = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [location,setLocation]=useState("");
+  const [showForm, setShowForm] = useState(false);
   const workers = servicesCards.find((w) => w.id === parseInt(id));
 
   // Helper function to get user image or default
   const getUserImage = (picture) => {
-    return picture ? `/Storage/userpicture/${picture}` : person;
+    return picture ? `/Storage/userpicture/${picture} `: person;
   };
+
+  // دالة لتغيير الحالة عند الضغط على زر Book Now
+      const handleBookNowClick = () => {
+        setShowForm(true);
+      };
 
   // Get logged-in user
   useEffect(() => {
@@ -66,6 +73,9 @@ const WorkerProfile = () => {
       alert("Please provide a comment.");
       return;
     }
+
+      
+
     try {
       const response = await fetch('http://localhost:4000/reviews', {
         method: "POST",
@@ -108,7 +118,15 @@ const WorkerProfile = () => {
             <p className='info-WU'><span className="font-semibold">Price:</span> {worker.fee} JD</p>
             <p className='info-WU'><span className="font-semibold">Availability:</span> {worker.availability || "8 a.m - 4 p.m"}</p>
           </div>
+           <span className="me-3">
+                  {/* زر Book Now */}
+                  <button onClick={handleBookNowClick} className="btn btn-primary">
+                    Book Now
+                  </button>
+                </span>
+                
         </div>
+      
 
         {/* Work Gallery */}
         <div className="col-md-6 mt-6 WorkPictures">
@@ -205,6 +223,11 @@ const WorkerProfile = () => {
 
         </div>
       </div>
+       {showForm && (
+              <div className="form-container">
+                <Booknow />
+              </div>
+            )}
     </div>
   );
 };
