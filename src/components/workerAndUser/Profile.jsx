@@ -223,7 +223,7 @@ const WorkerProfile = () => {
               <form onSubmit={handleSubmit} className='comment-form'>
                 <div className="d-flex gap-3">
                   <img
-                    src={user.id === parseInt(user.id) ? (user.picture ? `/Storage/userpicture/${user.picture}` : person) : person}
+                    src={user.id === parseInt(user.id) ? (user.picture ? `/Storage/userpicture/${user.picture} `: person) : person}
                     alt="User Avatar" className="user-avatar"
                   />
                   <h4>{user.name}</h4>
