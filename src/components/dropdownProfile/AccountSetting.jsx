@@ -251,11 +251,13 @@ const handleSave = async (field) => {
             )}
           </div>
         </>
-      ) : !showProviderForm ? (
-        <button onClick={handleBecomeProvider}>Become a Worker?</button>
-      ) : (
+      ) 
+      // : !showProviderForm ? (
+      //   <button onClick={handleBecomeProvider}>Become a Worker?</button>
+      // ) 
+      : (
         <div>
-          <h4>Became a Worker</h4>
+          {/* <h4>Became a Worker</h4>
           <div className="field-row">
             <label>Job Type:</label>
             <div className="field-content">
@@ -266,15 +268,15 @@ const handleSave = async (field) => {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
-          <input
+          {/* <input
             name="price"
             type="number"
             placeholder="Price"
             value={formValues.price || ""}
             onChange={handleInputChange}
-          />
+          /> */}
           <button onClick={handleProviderSubmit}>Submit</button>
         </div>
       )}

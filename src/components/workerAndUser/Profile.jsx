@@ -127,8 +127,8 @@ const WorkerProfile = () => {
   return (
   <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10 text-center">
       <div className="row ">
-        <div className="col-md-6 text-left containerForJob Profile">
-          <div className="flex items-center gap-4">
+        <div className="col-md-6 text-left containerForJob Profile CardProfile">
+          <div className="flex items-center gap-4  ">
             <img
               src={user.picture ? `/Storage/userpicture/${user.picture}` : person}
               alt={user.name}
@@ -246,10 +246,10 @@ const WorkerProfile = () => {
                     </div>
                     <p className="mb-2">{rev.comment}</p>
                     <p>
-                        <span className="font-semibold">Rating:</span>{" "}
+                        <span className="font-semibold"></span>{" "}
                         {user.rating
                           ? "⭐".repeat(Math.round(user.rating))
-                           : "No rating yet"}
+                           : "⭐⭐⭐⭐"}
                            </p>
                     <div className="comment-actions">
                       <a href="#like"><i className="bi bi-heart"></i> Like</a>

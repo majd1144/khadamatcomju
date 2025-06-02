@@ -180,8 +180,13 @@ const Navbar = ({ theme, setTheme }) => {
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><Link to="/profile" className="dropdown-item">Profile</Link></li>
                 <li><Link to="/accountsetting" className="dropdown-item">Account Setting</Link></li>
-                <li><Link to="/MyServices" className="dropdown-item">My Services</Link></li>
-                <li><Link to="/RequestedServices" className="dropdown-item">My Requests</Link></li>
+                {/* <li><Link to="/MyServices" className="dropdown-item">My Services</Link></li> */}
+                {/* <li><Link to="/RequestedServices" className="dropdown-item">My Requests</Link></li> */}
+                
+                 {user.role === "worker" && (
+                     <li><Link to="/MyServices" className="dropdown-item">My Services</Link></li>
+                      )}
+                <li> <Link to="/RequestedServices" className="dropdown-item"> My Requests</Link></li>
                 <li><button onClick={handleLogout} className="dropdown-item">Logout</button></li>
               </ul>
             </div>
@@ -199,20 +204,20 @@ const Navbar = ({ theme, setTheme }) => {
           )}
         </div>
 
-        <div className='navbarRes'></div>
+        {/* <div className='navbarRes'></div>
         <img
           onClick={toggle_mode}
           src={theme === 'light' ? logo_light : logo_dark_for_main}
           alt="toggle theme"
           className="modelogo navbarRes"
           style={{ cursor: 'pointer' }}
-        />
+        /> */}
 
-        <img
+        {/* <img
           src={translateLogo}
           className="modelogo ms-3"
           alt="Translate"
-        />
+        /> */}
       </div>
     </nav>
   );

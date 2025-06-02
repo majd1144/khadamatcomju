@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
 import "./ServicesDetalis.css"
-import { Link, useLocation } from "react-router-dom"; // استخدام useLocation لالتقاط عنوان الصفحة
+import { Link, useLocation } from "react-router-dom";
 import './ServicesCards.css';
 
 export default function ServicesCards({ services }) {
     const scrollRef = useRef(null);
-    const location = useLocation(); // الحصول على الـ location
+    const location = useLocation(); 
 
-    // التحقق إذا كانت الصفحة هي صفحة الخدمات
-    const isServicesPage = location.pathname === "/ServBtn"; // تأكد من المسار الصحيح
+    const isServicesPage = location.pathname === "/ServBtn"; 
 
     const scroll = (direction) => {
         if (scrollRef.current) {
@@ -25,7 +24,7 @@ export default function ServicesCards({ services }) {
                     <button className="scroll-btn right-btn" onClick={() => scroll('right')}>&#10095;</button>
                 </>
             )}
-            <div className="services-cards-wrapper" ref={scrollRef}>
+            <div className="services-cards-wrapper1" ref={scrollRef}>
                 <div className="services-cards">
                     {services.map((service) => (
                         <Link to={`/services-in/${service.title}`} key={service.title} className="service-card" >

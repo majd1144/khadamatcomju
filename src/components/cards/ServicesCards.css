@@ -1,4 +1,3 @@
- /* خدمات الحاوية الرئيسية */
 .services-card-container {
   display: flex;
   align-items: center;
@@ -7,7 +6,6 @@
   overflow: hidden;
   }
 
-/* الأزرار الخاصة بالتمرير */
 .scroll-btn {
   background-color: #9ec6f4;
   border: none;
@@ -21,29 +19,34 @@
   z-index: 10;
   }
 
-/* الزر الأيسر */
 .left-btn {
   left: 10px;
 }
 
-/* الزر الأيمن */
 .right-btn {
   right: 10px;
 }
 
-/* الحاوية التي تحتوي على بطاقات الخدمات */
 .services-cards-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width:100%;
+  padding: 5px;
+  }
+  .services-cards-wrapper1 {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   width:80%;
   padding: 5px;
-  
-  /* white-space: nowrap; */
+  overflow-x: auto;
   }
 
-/* إخفاء شريط التمرير */
-.services-cards-wrapper::-webkit-scrollbar {
+/* .services-cards-wrapper1::-webkit-scrollbar {
+  display:none;
+} */
+.services-cards-wrapper1::-webkit-scrollbar {
   display:none;
 }
 
@@ -51,7 +54,6 @@
   display: flex;
 }
 
-/* تصميم البطاقة */
 .service-card {
   /* flex: 150px;  */
   margin: 0 10px;

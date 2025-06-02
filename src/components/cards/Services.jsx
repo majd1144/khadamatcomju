@@ -23,7 +23,6 @@ export default function ServiceDetails() {
   
 
   const [showForm, setShowForm] = useState(false);
-  // دالة لتغيير الحالة عند الضغط على زر Book Now
   const handleBookNowClick = () => {
     setShowForm(true);
   };
@@ -52,7 +51,6 @@ export default function ServiceDetails() {
                   See Profile
                 </Link>
                 <span className="me-3">
-                  {/* زر Book Now */}
                   <button onClick={handleBookNowClick} className="btn btn-primary">
                     Book Now
                   </button>
@@ -63,7 +61,6 @@ export default function ServiceDetails() {
         ))}
       </div>
 
-      {/* إظهار النموذج Booknow عند الضغط على Book Now */}
       {showForm && (
         <div className="form-container">
           <Booknow />

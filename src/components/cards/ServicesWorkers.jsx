@@ -27,12 +27,7 @@ export default function ServicesWorkers() {
           <p>No workers available.</p>
         ) : (
           workers.map(worker => (
-            // <Link to={`/worker/${worker.id}`} key={worker.id} className="worker-card">
-            //   <img src={worker.image || '/default-worker.png'} alt={worker.name} />
-            //   <h3>{worker.name}</h3>
-            //   <p>Rating: {worker.rating || 0} ⭐</p>
-            //   <p>Price: {worker.fee} JD</p>
-            // </Link>
+           
             <Link to={`/worker/${worker.id}`} key={worker.id} className="worker-card">
   <img src={worker.picture || '/default-worker.png'} alt={`${worker.firstname} ${worker.lastname}`} />
   <h3>{worker.firstname} {worker.lastname}</h3>
