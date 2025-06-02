@@ -1,4 +1,3 @@
-// components/admin/AdminBookings.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -6,18 +5,32 @@ const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-axios.get("http://localhost:4000/admin/bookings")
+    axios.get("http://localhost:4000/admin/bookings")
       .then(res => setBookings(res.data))
       .catch(err => console.error("❌ Failed to load bookings:", err));
   }, []);
-const handleStatusChange = async (id, status) => {
-  try {
-    await axios.patch(`http://localhost:4000/admin/bookings/${id}`, { status });
-    setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b));
-  } catch (err) {
-    console.error("❌ Failed to update status:", err);
-  }
-};
+
+  const handleStatusChange = async (id, status) => {
+    try {
+      await axios.patch(`http://localhost:4000/admin/bookings/${id}`, { status });
+      setBookings(prev =>
+        prev.map(b => b.id === id ? { ...b, status } : b)
+      );
+    } catch (err) {
+      console.error("❌ Failed to update status:", err);
+    }
+  };
+
+  // Utility: Format date and time
+  const formatDate = (isoDate) => {
+    const dateObj = new Date(isoDate);
+    return dateObj.toLocaleDateString(); // e.g. 6/10/2025
+  };
+
+  const formatTime = (isoDate) => {
+    const dateObj = new Date(isoDate);
+    return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // e.g. 09:00 AM
+  };
 
   return (
     <div>
@@ -35,30 +48,29 @@ const handleStatusChange = async (id, status) => {
           </tr>
         </thead>
         <tbody>
-  {bookings.map((b) => (
-    <tr key={b.id} className="border-t">
-      <td className="p-2">{b.user_firstname} {b.user_lastname}</td>
-      <td className="p-2">{b.servicetype}</td>
-      <td className="p-2">{b.worker_service}</td>
-      <td className="p-2">{b.fee} JD</td>
-      <td className="p-2">{b.date}</td>
-      <td className="p-2">{b.time}</td>
-      <td className="p-2">
-        <select
-          value={b.status}
-          onChange={(e) => handleStatusChange(b.id, e.target.value)}
-          className="border p-1"
-        >
-          <option value="Pending">Pending</option>
-          <option value="Confirmed">Confirmed</option>
-          <option value="Completed">Completed</option>
-          <option value="Cancelled">Cancelled</option>
-        </select>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+          {bookings.map((b) => (
+            <tr key={b.id} className="border-t">
+              <td className="p-2">{b.user_firstname} {b.user_lastname}</td>
+              <td className="p-2">{b.servicetype || "-"}</td>
+              <td className="p-2">{b.worker_service}</td>
+              <td className="p-2">{b.fee} JD</td>
+              <td className="p-2">{formatDate(b.servicedate)}</td>
+              <td className="p-2">{formatTime(b.servicedate)}</td>
+              <td className="p-2">
+                <select
+                  value={b.status}
+                  onChange={(e) => handleStatusChange(b.id, e.target.value)}
+                  className="border p-1"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="completed">Completed</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
