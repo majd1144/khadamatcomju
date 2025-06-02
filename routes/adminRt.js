@@ -80,7 +80,7 @@ router.get("/bookings", async (req, res) => {
       SELECT sr.id, sr.userid, sr.workerid, sr.servicedate, sr.status, sr.urgency,
              u.firstname AS user_firstname, u.lastname AS user_lastname,
              wu.firstname AS worker_firstname, wu.lastname AS worker_lastname,
-             w.servicecategory AS worker_service, w.experience
+             w.servicecategory AS worker_service, w.experience, w.fee
       FROM service_requests sr
       JOIN users u ON sr.userid = u.id
       JOIN workers w ON sr.workerid = w.id
@@ -92,6 +92,30 @@ router.get("/bookings", async (req, res) => {
   } catch (err) {
     console.error("Error fetching bookings:", err);
     res.status(500).json({ error: "Failed to load bookings" });
+  }
+});
+
+// ✅ Update booking status
+router.patch("/bookings/:id", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  console.log("🛠️ Updating booking status...");
+  console.log("📦 Booking ID:", id);
+  console.log("📌 New Status:", status);
+
+  try {
+    const result = await db.query(
+      "UPDATE service_requests SET status = $1 WHERE id = $2 RETURNING *",
+      [status, id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Booking not found" });
+    }
+    res.status(200).json({ message: "Status updated", booking: result.rows[0] });
+  } catch (err) {
+    console.error("❌ Error updating booking status:", err);
+    res.status(500).json({ error: "Failed to update status" });
   }
 });
 
