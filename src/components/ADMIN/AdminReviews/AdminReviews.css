@@ -1,0 +1,29 @@
+.admin-reviews table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-reviews th,
+.admin-reviews td {
+  padding: 12px 16px; /* ← هذا يعمل المسافة الداخلية */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-reviews th {
+  background-color: #f2f2f2;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}

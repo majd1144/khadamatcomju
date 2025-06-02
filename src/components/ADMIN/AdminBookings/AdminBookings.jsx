@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./AdminBookings.css";
 
 const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -33,6 +34,7 @@ const AdminBookings = () => {
   };
 
   return (
+    <div className="admin-bookings">
     <div>
       <h2 className="text-2xl font-bold mb-4">📦 All Bookings</h2>
       <table className="w-full border border-gray-300">
@@ -72,6 +74,7 @@ const AdminBookings = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

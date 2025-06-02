@@ -1,6 +1,7 @@
 // components/admin/AdminUsers.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./AdminUsers.css";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -32,6 +33,8 @@ useEffect(() => {
   };
 
   return (
+    <div className="admin-users">
+
     <div>
       <h2 className="text-2xl font-bold mb-4">👥 All Users</h2>
       <table className="w-full border border-gray-300">
@@ -74,6 +77,7 @@ useEffect(() => {
 
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

@@ -1,0 +1,31 @@
+.admin-bookings {
+  margin-top: 20px;
+}
+
+.admin-bookings table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.admin-bookings th,
+.admin-bookings td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-bookings th {
+  background-color: #f2f2f2;
+}
+
+.admin-bookings select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.admin-bookings tr:hover {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease-in-out;
+}
